@@ -282,6 +282,46 @@ dt_clear %>%
 ```
 
 
+ugyanaz a kerdes meg
+
+
+```{r}
+dt_clear %>%
+  arrange(happiness_rank) %>%
+  ggplot() +
+  geom_point(mapping = aes(x = happiness_rank, y = total_alcohol, color = alcohol_cat))
+
+# it seems like it is exacly the opposit
+
+dt_clear %>%
+  group_by(alcohol_cat) %>%
+  summarise(
+    mean_happiness = mean(happiness_score),
+    sd_happiness = sd(happiness_score),
+    mean_happy_rank = mean(happiness_rank),
+    sd_happy_rank = sd(happiness_rank)
+  ) %>%
+  kable(., digits = 2, align = "l", caption = "Avarages about talalj ki valamit")
+
+
+dt_clear %>%
+  group_by(alcohol_cat) %>%
+  summarise(
+    mean_happiness = mean(happiness_score),
+    sd_happiness = sd(happiness_score),
+    mean_happy_rank = mean(happiness_rank),
+    sd_happy_rank = sd(happiness_rank)
+  ) %>%
+  ggplot() +
+  geom_bar(aes(x = alcohol_cat, y = mean_happiness), stat = "identity") +
+  geom_hline(yintercept = mean(dt_clear$happiness_score), linetype="dotted", color = "red")
+
+
+
+```
+
+
+
 
 
 # Countries where people do not drink alcohol
