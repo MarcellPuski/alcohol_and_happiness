@@ -193,6 +193,53 @@ dt_clear %>%
   )
 
 
+# creating summary table by Regions
+dt_clear %>%
+  group_by(Region) %>%
+  summarise(
+    mn_happiness = mean(happiness_score),
+    md_happiness = median(happiness_score),
+    sd_happiness = sd(happiness_score),
+    max_happiness = max(happiness_score),
+    min_happiness = min(happiness_score),
+    mn_alcohol = mean(total_alcohol),
+    md_alcohol = median(total_alcohol),
+    sd_alcohol = sd(total_alcohol),
+    max_alcohol = max(total_alcohol),
+    min_alcohol = min(total_alcohol)
+  ) 
+
+# Ploting summary table
+
+plot_1 <- dt_clear %>%
+  group_by(Region) %>%
+  summarise(
+    mn_happiness = mean(happiness_score),
+    sd_happiness = sd(happiness_score),
+    max_happiness = max(happiness_score),
+    min_happiness = min(happiness_score),
+    mn_alcohol = mean(total_alcohol),
+    sd_alcohol = sd(total_alcohol),
+    max_alcohol = max(total_alcohol),
+    min_alcohol = min(total_alcohol)
+  )
+
+# Ehhez meg ezt a standard deviation vonalat nezd meg!
+
+plot_1 %>%
+  ggplot() +
+  geom_bar(aes(x = Region, y = mn_happiness), stat = "identity") +
+  geom_errorbar(aes(x = Region, ymin = mn_happiness - sd_happiness, ymax = mn_happiness + sd_happiness)) +
+  theme(axis.text.x = element_text(angle = 90))
+
+plot_1 %>%
+  ggplot() +
+  geom_bar(aes(x = Region, y = mn_alcohol), stat = "identity") +
+  geom_errorbar(aes(x = Region, ymin = mn_alcohol - sd_alcohol, ymax = mn_alcohol + sd_alcohol)) +
+  theme(axis.text.x = element_text(angle = 90))
+  
+
+
 ```
 
 
@@ -260,4 +307,7 @@ dt_clear %>%
 
 
 ```
+
+
+
 
