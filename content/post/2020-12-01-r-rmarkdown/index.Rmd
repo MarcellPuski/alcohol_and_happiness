@@ -168,3 +168,14 @@ dt_clear$alcohol_cat <- cut(dt_clear$total_alcohol, c(-1, 0, 5,10,15), labels = 
 
 
 
+
+
+
+# basic kable
+
+```{r}
+kable(head(dt_clear), digits = 2, align = "l", caption = "Avarages about talalj ki valamit")
+
+```
+
+
