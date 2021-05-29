@@ -30,3 +30,28 @@ alcohol <- read.csv("data/drinks.csv")
 
 ```
 
+
+
+# joining data
+
+```{r}
+# renaming country column to be the same in the two datasets
+world_happiness <- 
+  world_happiness %>%
+  rename(country = 'Country')
+
+# joining the two datasets based on country names
+dt <- left_join(world_happiness, alcohol)
+
+
+# checking joined data
+apply(is.na(dt),2,sum)
+
+# creating data set for missing data
+missing_dt <- 
+  dt %>%
+  filter(is.na(beer_servings))
+
+
+```
+
