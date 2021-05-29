@@ -234,3 +234,30 @@ dt_clear %>%
 
 ```
 
+
+
+
+# Countries where people do not drink alcohol
+
+
+
+```{r}
+# summary table 
+dt_clear %>%
+  filter(total_alcohol == 0) %>%
+  select(happiness_rank, country, happiness_score, total_alcohol)
+
+
+
+# plot
+dt_clear %>%
+  filter(total_alcohol == 0) %>%
+  arrange(happiness_rank) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = Region, y = happiness_score, fill = country), stat = "identity", position = "dodge") +
+  geom_hline(yintercept = mean(dt_clear$happiness_score), linetype="dotted", color = "red")
+  
+
+
+```
+
