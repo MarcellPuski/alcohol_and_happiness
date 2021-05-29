@@ -350,4 +350,53 @@ dt_clear %>%
 
 
 
+# question two - Do people in happy countries drink different kind of alcohol?
+
+
+```{r}
+# for safety
+plot_servings <- dt_clear
+
+# creating happiness categories
+
+plot_servings$happy_cat <- cut(plot_servings$happiness_rank, c(-1, 50, 100, 160), labels = c("happy", "medium happy", "not happy"))
+
+
+
+# table
+
+plot_servings %>%
+  group_by(happy_cat) %>%
+  summarise(
+    mn_beer = mean(beer_servings),
+    mn_spirit = mean(spirit_servings),
+    mn_wine = mean(wine_servings),
+    mn_total = mean(total_alcohol)
+  ) %>%
+  kable(., digits = 2, align = "l", caption = "Valami")
+
+
+# make the data long format to be able to plot it
+
+plot_servings_plot <- plot_servings %>%
+  group_by(happy_cat) %>%
+  summarise(
+    mn_beer = mean(beer_servings),
+    mn_spirit = mean(spirit_servings),
+    mn_wine = mean(wine_servings),
+    mn_total = mean(total_alcohol)
+  ) %>%
+  gather(data = ., 
+       key = alcohol_type, value = servings,
+       'mn_beer':'mn_wine')
+
+
+# plot
+
+plot_servings_plot %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = happy_cat, y = servings, fill = alcohol_type), stat = "identity", position = "dodge")
+
+```
+
 
