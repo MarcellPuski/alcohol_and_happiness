@@ -176,6 +176,21 @@ dt_clear$alcohol_cat <- cut(dt_clear$total_alcohol, c(-1, 0, 5,10,15), labels = 
 ```{r}
 kable(head(dt_clear), digits = 2, align = "l", caption = "Avarages about talalj ki valamit")
 
+# avarages about happiness and alcohol consumtion
+
+dt_clear %>%
+  summarise(
+    mn_happiness = mean(happiness_score),
+    md_happiness = median(happiness_score),
+    sd_happiness = sd(happiness_score),
+    max_happiness = max(happiness_score),
+    min_happiness = min(happiness_score),
+    mn_alcohol = mean(total_alcohol),
+    md_alcohol = median(total_alcohol),
+    sd_alcohol = sd(total_alcohol),
+    max_alcohol = max(total_alcohol),
+    min_alcohol = min(total_alcohol)
+  )
 
 
 ```
