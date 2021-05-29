@@ -6,6 +6,7 @@ categories: ["R"]
 tags: ["R Markdown", "plot"]
 ---
 
+
 # libraries
 
 
@@ -145,5 +146,25 @@ dt_clear <-
          total_alcohol = 'total_litres_of_pure_alcohol')
 
 ```
+
+
+
+
+
+
+# creating sub-groups
+
+alcohol:
+
+0-14.4 
+
+less than
+
+```{r}
+
+dt_clear$alcohol_cat <- cut(dt_clear$total_alcohol, c(-1, 0, 5,10,15), labels = c("doesn't drink","drinks less than 5 liters", "drinks 5-10 liters", "drinks 10-15 liters"))
+
+```
+
 
 
