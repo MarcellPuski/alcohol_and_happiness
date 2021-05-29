@@ -400,3 +400,59 @@ plot_servings_plot %>%
 ```
 
 
+
+
+# question three - lets see sub categories of happiness: GDP etc.
+
+
+```{r}
+# GDP
+
+dt_clear %>%
+  ggplot(., mapping = aes(x = GDP, y = total_alcohol)) +
+  geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
+  geom_smooth(color = "firebrick") +
+  ylim(0, 15)
+
+# Family
+dt_clear %>%
+  ggplot(., mapping = aes(x = Family, y = total_alcohol)) +
+  geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
+  geom_smooth(color = "firebrick") +
+  ylim(0, 15)
+
+# life_expectansy
+
+dt_clear %>%
+  ggplot(., mapping = aes(x = life_expectancy, y = total_alcohol)) +
+  geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
+  geom_smooth(color = "firebrick") +
+  ylim(0, 15)
+
+# Freedom
+
+dt_clear %>%
+  ggplot(., mapping = aes(x = Freedom, y = total_alcohol)) +
+  geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
+  geom_smooth(color = "firebrick") +
+  ylim(0, 15)
+
+# corruption
+
+dt_clear %>%
+  ggplot(., mapping = aes(x = corruption, y = total_alcohol)) +
+  geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
+  geom_smooth(color = "firebrick") +
+  ylim(0, 15)
+
+# generosity
+
+dt_clear %>%
+  ggplot(., mapping = aes(x = Generosity, y = total_alcohol)) +
+  geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
+  geom_smooth(color = "firebrick") +
+  ylim(0, 15)
+
+
+```
+
