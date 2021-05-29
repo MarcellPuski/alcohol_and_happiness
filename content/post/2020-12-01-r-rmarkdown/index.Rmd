@@ -55,3 +55,57 @@ missing_dt <-
 
 ```
 
+
+
+
+in a few cases there is a mismatch between the datasets in the countries names causing more missing data
+
+The following names represent the same country:
+
+United States = USA
+Russia = Russian Federation
+Congo (Brazzaville) = Congo
+Congo (Kinshasa) = DR Congo
+Trinidad and Tobago = Trinidad & Tobago
+Somaliland region	= Somalia
+Bosnia and Herzegovina = Bosnia-Herzegovina
+Ivory Coast = Cote d'Ivoire
+
+
+# correcting country names 
+
+```{r}
+# creating coppy for safty
+chumpa <- world_happiness 
+
+
+# list of country names which needs to be replaced
+
+csere <- c("United States", "Trinidad and Tobago", "Russia", "Somaliland region", "Bosnia and Herzegovina", "Congo (Brazzaville)","Congo (Kinshasa)","Ivory Coast")
+
+
+# list of corrected country names
+
+bere <- c("USA", "Trinidad & Tobago", "Russian Federation", "Somalia", "Bosnia-Herzegovina", "Congo", "DR Congo", "Cote d'Ivoire")
+
+
+# renaming country names
+szerint <- which(chumpa$country %in% csere)
+
+for (i in 1:length(szerint)) {
+  chumpa$country[szerint[i]] <-  bere[i]
+  
+  
+}
+
+# re joining data, with corrected names
+dt_clear <- left_join(chumpa, alcohol)
+
+
+# checking 
+dim(dt_clear)
+apply(is.na(dt_clear),2,sum)
+
+
+```
+
