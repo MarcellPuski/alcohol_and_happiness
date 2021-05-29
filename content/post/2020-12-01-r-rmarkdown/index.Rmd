@@ -176,6 +176,46 @@ dt_clear$alcohol_cat <- cut(dt_clear$total_alcohol, c(-1, 0, 5,10,15), labels = 
 ```{r}
 kable(head(dt_clear), digits = 2, align = "l", caption = "Avarages about talalj ki valamit")
 
+
+
 ```
 
+
+
+
+
+
+# Does happy countries drink less alcohol?
+
+
+
+```{r}
+
+# alcohol / happiness rank + Region
+
+dt_clear %>%
+  arrange(happiness_rank) %>%
+  ggplot() +
+  geom_point(mapping = aes(x = happiness_rank, y = total_alcohol, color = Region))
+
+# ugyanez + smoothal 
+
+dt_clear %>%
+  arrange(happiness_rank) %>%
+  ggplot(., mapping = aes(x = happiness_rank, y = total_alcohol)) +
+  geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
+  geom_smooth(color = "firebrick")
+
+
+
+# alcohol /happinass rank + Region
+dt_clear %>%
+  arrange(happiness_rank) %>%
+  ggplot() +
+  geom_point(mapping = aes(x = happiness_rank, y = total_alcohol, color = Region)) +
+  facet_wrap(~Region)
+
+
+
+```
 
