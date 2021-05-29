@@ -109,3 +109,20 @@ apply(is.na(dt_clear),2,sum)
 
 ```
 
+
+
+
+# Deleting NA rows
+
+Deleting rows where there is no data about alcohol consumtion 
+
+```{r}
+dt_clear <- na.omit(dt_clear)
+
+# checking
+dim(dt_clear)
+
+apply(is.na(dt_clear),2,sum)
+
+```
+
