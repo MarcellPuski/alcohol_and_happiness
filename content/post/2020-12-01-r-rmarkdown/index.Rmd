@@ -126,3 +126,24 @@ apply(is.na(dt_clear),2,sum)
 
 ```
 
+
+
+
+
+# renaming columns without spaces
+
+```{r}
+dt_clear <- 
+  dt_clear %>%
+  rename(happiness_score = 'Happiness Score',
+         happiness_rank = 'Happiness Rank',
+         standard_error = 'Standard Error',
+         GDP = 'Economy (GDP per Capita)',
+         life_expectancy = 'Health (Life Expectancy)',
+         corruption = 'Trust (Government Corruption)',
+         dystopia_residual = 'Dystopia Residual',
+         total_alcohol = 'total_litres_of_pure_alcohol')
+
+```
+
+
