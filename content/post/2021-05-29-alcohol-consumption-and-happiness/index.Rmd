@@ -371,13 +371,15 @@ Also there could be other factors like cultural differences in alcohol consumpti
 
 # Countries where people do not drink alcohol
 
+In the following let's see only the countries where people don't drink alcohol
 
 
 ```{r echo=FALSE}
 # summary table 
 dt_clear %>%
   filter(total_alcohol == 0) %>%
-  select(happiness_rank, country, happiness_score, total_alcohol)
+  select(happiness_rank, country, happiness_score, total_alcohol) %>%
+  kable(., digits = 2, align = "l", col.names = c("Happiness rank", "Country", "Happiness score", "total liters of pure alcohol"), caption = "Countries where people doesn't drink alcohol")
 
 
 
@@ -387,16 +389,26 @@ dt_clear %>%
   arrange(happiness_rank) %>%
   ggplot() +
   geom_bar(mapping = aes(x = Region, y = happiness_score, fill = country), stat = "identity", position = "dodge") +
-  geom_hline(yintercept = mean(dt_clear$happiness_score), linetype="dotted", color = "red")
-  
+  geom_hline(yintercept = mean(dt_clear$happiness_score), linetype="dotted", color = "red") +
+  labs(title = "Countries where people doesn't drink alcohol",
+       x = "",
+       y = "mean happiness scores") +
+  theme_classic()
 
 
 ```
 
 
 
-# question two - Do people in happy countries drink different kind of alcohol?
+# Do people in happy countries drink different kind of alcohol than people in less happy countries?
 
+
+In the present dataset there is information about how much servings of an avarage person drinks beer, spirits, and wine in a country, so it would be interesting to see weather people in happy countries has different alcohol drinking habbits than is less happy countries.  
+
+
+For this reason i also created subcategories now based on the countries happines ranks, where the first 50 countries i labeled *"happy"* countries between 50 and 100 *"medium happy"* countries and above 100 *"not happy"* countries.
+
+This is of course a subjective category only for demonstration purposes.
 
 ```{r echo=FALSE}
 # for safety
@@ -418,7 +430,7 @@ plot_servings %>%
     mn_wine = mean(wine_servings),
     mn_total = mean(total_alcohol)
   ) %>%
-  kable(., digits = 2, align = "l", caption = "Valami")
+  kable(., digits = 2, align = "l", col.names = c("happyness category", "mean beer servings", "mean spirit servings", "mean wine servings", "mean total liters of alcohol"), caption = "types of alcohol servings by happiness")
 
 
 # make the data long format to be able to plot it
@@ -440,10 +452,17 @@ plot_servings_plot <- plot_servings %>%
 
 plot_servings_plot %>%
   ggplot() +
-  geom_bar(mapping = aes(x = happy_cat, y = servings, fill = alcohol_type), stat = "identity", position = "dodge")
+  geom_bar(mapping = aes(x = happy_cat, y = servings, fill = alcohol_type), stat = "identity", position = "dodge") +
+  labs(title = "Types of alcohol servings by happiness",
+       x = "",
+       y = "mean servings",
+       fill = "alcohol type") +
+  theme_classic()
 
 ```
 
+
+One difference between *happy* and *medium* and *not happy* countries is the wine consumption. In every category people drink beer the most, but in the top 50 rated country people drink as much wine as spirits, while in less happy countries people drink more spirits than wine.
 
 
 
