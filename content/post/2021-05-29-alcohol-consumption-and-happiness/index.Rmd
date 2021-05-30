@@ -171,7 +171,7 @@ Table 1 shows the five happiest countries,
 dt_clear %>%
   select(country:happiness_score, beer_servings:total_alcohol) %>%
   filter(happiness_rank <= 5) %>%
-  kable(., digits = 2, align = "l", col.names = c("Country", "Region", "Happiness Rank", "Happiness Score", "Beer servings", "Spirit servings", "Wine servings", "Total liters of pure alcohol"), caption = "Ten happiest countries")
+  kable(., digits = 2, align = "l", col.names = c("Country", "Region", "Happiness Rank", "Happiness Score", "Beer servings", "Spirit servings", "Wine servings", "Total liters of pure alcohol"), caption = "Ten five countries")
 
 
 ```
@@ -188,7 +188,7 @@ dt_clear %>%
   select(country:happiness_score, beer_servings:total_alcohol) %>%
   arrange(desc(total_alcohol)) %>%
   top_n(5) %>%
-  kable(., digits = 2, align = "l", col.names = c("Country", "Region", "Happiness Rank", "Happiness Score", "Beer servings", "Spirit servings", "Wine servings", "Total liters of pure alcohol"), caption = "Top ten countries that drinks the most alcohol")
+  kable(., digits = 2, align = "l", col.names = c("Country", "Region", "Happiness Rank", "Happiness Score", "Beer servings", "Spirit servings", "Wine servings", "Total liters of pure alcohol"), caption = "Top five countries that drinks the most alcohol")
 
 
 ```
@@ -204,21 +204,21 @@ dt_clear %>%
 # avarages about happiness and alcohol consumtion
 
 
+# creating summary table by Regions - usufull but doesn't look good
 
-# creating summary table by Regions
-dt_clear %>%
-  group_by(Region) %>%
-  summarise(
-    mn_happiness = mean(happiness_score),
-    sd_happiness = sd(happiness_score),
-    max_happiness = max(happiness_score),
-    min_happiness = min(happiness_score),
-    mn_alcohol = mean(total_alcohol),
-    sd_alcohol = sd(total_alcohol),
-    max_alcohol = max(total_alcohol),
-    min_alcohol = min(total_alcohol)
-  ) %>%
-  kable(., digits = 2, align = "l", col.names = c("Region", "mean happiness", "happiness standard deviation", "max happiness score", "minimum happiness score", "mean total liters of alcohol", "standard deviation of total liters of alcohol", "maximum total liters of alcohol", "minimum total liters of alcohol"))
+# dt_clear %>%
+#   group_by(Region) %>%
+#   summarise(
+#     mn_happiness = mean(happiness_score),
+#     sd_happiness = sd(happiness_score),
+#     max_happiness = max(happiness_score),
+#     min_happiness = min(happiness_score),
+#     mn_alcohol = mean(total_alcohol),
+#     sd_alcohol = sd(total_alcohol),
+#     max_alcohol = max(total_alcohol),
+#     min_alcohol = min(total_alcohol)
+#   ) %>%
+#   kable(., digits = 2, align = "l", col.names = c("Region", "mean happiness", "happiness standard deviation", "max happiness score", "minimum happiness score", "mean total liters of alcohol", "standard deviation of total liters of alcohol", "maximum total liters of alcohol", "minimum total liters of alcohol"), caption = "Summary table by Regions")
 
 # Ploting summary table
 
@@ -242,7 +242,7 @@ plot_1 %>%
   geom_bar(aes(x = Region, y = mn_happiness), stat = "identity", fill = "skyblue1") +
   geom_errorbar(aes(x = Region, ymin = mn_happiness - sd_happiness, ymax = mn_happiness + sd_happiness), color = "red3") +
   labs(title = "Happiness levels by regions",
-       x = "Regions", y = "mean happiness score") +
+       x = "", y = "mean happiness score") +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 90))
 
@@ -251,10 +251,35 @@ plot_1 %>%
   geom_bar(aes(x = Region, y = mn_alcohol), stat = "identity", fill = "skyblue1") +
   geom_errorbar(aes(x = Region, ymin = mn_alcohol - sd_alcohol, ymax = mn_alcohol + sd_alcohol), color = "red3") +
   labs(title = "Alcohol consumption by regions",
-       x = "Regions", y = "mean total liters of alcohol") +
+       x = "", y = "mean total liters of alcohol") +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 90))
   
+
+# alcohol / happiness rank + Region
+
+dt_clear %>%
+  arrange(happiness_rank) %>%
+  ggplot() +
+  geom_point(mapping = aes(x = happiness_rank, y = total_alcohol, color = Region)) +
+  labs(title = "Happiness rank and alcohol consumption by region's",
+       x = "Happiness rank",
+       y = "mean total liters of alcohol") +
+  theme_classic()
+
+
+
+# # alcohol /happinass rank + Region - Doesn't look good 
+# dt_clear %>%
+#   arrange(happiness_rank) %>%
+#   ggplot() +
+#   geom_point(mapping = aes(x = happiness_rank, y = total_alcohol, color = Region)) +
+#   facet_wrap(~Region) +
+#   labs(title = "Happiness rank and alcohol consumption by region's",
+#        x = "Happiness rank",
+#        y = "mean total liters of alcohol") +
+#   theme_classic()
+# 
 
 
 ```
@@ -268,14 +293,9 @@ plot_1 %>%
 
 
 
+
+
 ```{r echo=FALSE, message=FALSE}
-
-# alcohol / happiness rank + Region
-
-dt_clear %>%
-  arrange(happiness_rank) %>%
-  ggplot() +
-  geom_point(mapping = aes(x = happiness_rank, y = total_alcohol, color = Region))
 
 # ugyanez + smoothal 
 
@@ -285,14 +305,6 @@ dt_clear %>%
   geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
   geom_smooth(color = "firebrick")
 
-
-
-# alcohol /happinass rank + Region
-dt_clear %>%
-  arrange(happiness_rank) %>%
-  ggplot() +
-  geom_point(mapping = aes(x = happiness_rank, y = total_alcohol, color = Region)) +
-  facet_wrap(~Region)
 
 
 
