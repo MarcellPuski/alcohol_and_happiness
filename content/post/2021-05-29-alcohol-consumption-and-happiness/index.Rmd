@@ -160,13 +160,34 @@ dt_clear$alcohol_cat <- cut(dt_clear$total_alcohol, c(-1, 0, 5,10,15), labels = 
 
 ```
 
+By joining the datasets together and keeping only the countries where is informations about alcohol drinking and happiness as well, there remained 153 countries. 
 
+
+```{r echo=FALSE, message=FALSE}
+# table of 10 happiest countries
+
+dt_clear %>%
+  select(country:happiness_score, beer_servings:total_alcohol) %>%
+  filter(happiness_rank <= 10) %>%
+  kable(., digits = 2, align = "l", col.names = c("Country", "Region", "Happiness Rank", "Happiness Score", "Beer servings", "Spirit servings", "Wine servings", "Total liters of pure alcohol"), caption = "Ten happiest countries")
+
+
+# table of 10 most alcohol drinking countries
+dt_clear %>%
+  select(country:happiness_score, beer_servings:total_alcohol) %>%
+  arrange(desc(total_alcohol)) %>%
+  top_n(10) %>%
+  kable(., digits = 2, align = "l", col.names = c("Country", "Region", "Happiness Rank", "Happiness Score", "Beer servings", "Spirit servings", "Wine servings", "Total liters of pure alcohol"), caption = "Top ten countries that drinks the most alcohol")
+
+
+```
 
 
 # basic kable
 
 ```{r echo=FALSE}
-kable(head(dt_clear), digits = 2, align = "l", caption = "Avarages about talalj ki valamit")
+
+
 
 # avarages about happiness and alcohol consumtion
 
