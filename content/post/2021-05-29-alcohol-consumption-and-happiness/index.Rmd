@@ -466,7 +466,13 @@ One difference between *happy* and *medium* and *not happy* countries is the win
 
 
 
-# question three - lets see sub categories of happiness: GDP etc.
+# Other factors and alcohol consumption
+
+
+Finally lets see how the six factors which contributes to the countries happiness levels correlate with alcohol consumption.
+
+As mentioned above this factors represent contribution to making life evaluations higher in each country than they are in Dystopia, a hypothetical country that has values equal to the world’s lowest national averages for each of the six factors. 
+For more information about this variables and the overall the **World Happiness Report** visit their website [here](https://worldhappiness.report/ed/2015/) 
 
 
 
@@ -477,14 +483,22 @@ dt_clear %>%
   ggplot(., mapping = aes(x = GDP, y = total_alcohol)) +
   geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
   geom_smooth(color = "firebrick") +
-  ylim(0, 15)
+  ylim(0, 15) +
+  labs(title = "GDP and alcohol consumption",
+       x = "GDP",
+       y = "mean total liters of alcohol") +
+  theme_classic()
 
 # Family
 dt_clear %>%
   ggplot(., mapping = aes(x = Family, y = total_alcohol)) +
   geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
   geom_smooth(color = "firebrick") +
-  ylim(0, 15)
+  ylim(0, 15) +
+  labs(title = "Family and alcohol consumption",
+       x = "Family",
+       y = "mean total liters of alcohol") +
+  theme_classic()
 
 # life_expectansy
 
@@ -492,7 +506,11 @@ dt_clear %>%
   ggplot(., mapping = aes(x = life_expectancy, y = total_alcohol)) +
   geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
   geom_smooth(color = "firebrick") +
-  ylim(0, 15)
+  ylim(0, 15) +
+  labs(title = "Life expectancy and alcohol consumption",
+       x = "life_expectancy",
+       y = "mean total liters of alcohol") +
+  theme_classic()
 
 # Freedom
 
@@ -500,7 +518,11 @@ dt_clear %>%
   ggplot(., mapping = aes(x = Freedom, y = total_alcohol)) +
   geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
   geom_smooth(color = "firebrick") +
-  ylim(0, 15)
+  ylim(0, 15) +
+  labs(title = "Freedom and alcohol consumption",
+       x = "Freedom",
+       y = "mean total liters of alcohol") +
+  theme_classic()
 
 # corruption
 
@@ -508,7 +530,11 @@ dt_clear %>%
   ggplot(., mapping = aes(x = corruption, y = total_alcohol)) +
   geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
   geom_smooth(color = "firebrick") +
-  ylim(0, 15)
+  ylim(0, 15) +
+  labs(title = "Corruption and alcohol consumption",
+       x = "corruption",
+       y = "mean total liters of alcohol") +
+  theme_classic()
 
 # generosity
 
@@ -516,7 +542,11 @@ dt_clear %>%
   ggplot(., mapping = aes(x = Generosity, y = total_alcohol)) +
   geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
   geom_smooth(color = "firebrick") +
-  ylim(0, 15)
+  ylim(0, 15) +
+  labs(title = "Generosity and alcohol consumption",
+       x = "Generosity",
+       y = "mean total liters of alcohol") +
+  theme_classic()
 
 
 ```
