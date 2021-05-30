@@ -330,6 +330,87 @@ dim(dt_clear)</code></pre>
 </tr>
 </tbody>
 </table>
+<pre class="r"><code># avarages about happiness and alcohol consumtion
+
+dt_clear %&gt;%
+  summarise(
+    mn_happiness = mean(happiness_score),
+    md_happiness = median(happiness_score),
+    sd_happiness = sd(happiness_score),
+    max_happiness = max(happiness_score),
+    min_happiness = min(happiness_score),
+    mn_alcohol = mean(total_alcohol),
+    md_alcohol = median(total_alcohol),
+    sd_alcohol = sd(total_alcohol),
+    max_alcohol = max(total_alcohol),
+    min_alcohol = min(total_alcohol)
+  )</code></pre>
+<pre><code>## # A tibble: 1 x 10
+##   mn_happiness md_happiness sd_happiness max_happiness min_happiness
+##          &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+## 1         5.37         5.19         1.16          7.59          2.84
+## # ... with 5 more variables: mn_alcohol &lt;dbl&gt;, md_alcohol &lt;dbl&gt;,
+## #   sd_alcohol &lt;dbl&gt;, max_alcohol &lt;dbl&gt;, min_alcohol &lt;dbl&gt;</code></pre>
+<pre class="r"><code># creating summary table by Regions
+dt_clear %&gt;%
+  group_by(Region) %&gt;%
+  summarise(
+    mn_happiness = mean(happiness_score),
+    md_happiness = median(happiness_score),
+    sd_happiness = sd(happiness_score),
+    max_happiness = max(happiness_score),
+    min_happiness = min(happiness_score),
+    mn_alcohol = mean(total_alcohol),
+    md_alcohol = median(total_alcohol),
+    sd_alcohol = sd(total_alcohol),
+    max_alcohol = max(total_alcohol),
+    min_alcohol = min(total_alcohol)
+  ) </code></pre>
+<pre><code>## # A tibble: 10 x 11
+##    Region mn_happiness md_happiness sd_happiness max_happiness
+##    &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;
+##  1 Austr~         7.28         7.28      0.00141          7.29
+##  2 Centr~         5.32         5.25      0.579            6.50
+##  3 Easte~         5.50         5.56      0.575            5.99
+##  4 Latin~         6.14         6.15      0.729            7.23
+##  5 Middl~         5.44         5.33      1.12             7.28
+##  6 North~         7.27         7.27      0.218            7.43
+##  7 South~         5.32         5.36      0.950            6.80
+##  8 South~         4.58         4.57      0.571            5.25
+##  9 Sub-S~         4.20         4.27      0.610            5.48
+## 10 Weste~         6.74         6.94      0.813            7.59
+## # ... with 6 more variables: min_happiness &lt;dbl&gt;, mn_alcohol &lt;dbl&gt;,
+## #   md_alcohol &lt;dbl&gt;, sd_alcohol &lt;dbl&gt;, max_alcohol &lt;dbl&gt;,
+## #   min_alcohol &lt;dbl&gt;</code></pre>
+<pre class="r"><code># Ploting summary table
+
+plot_1 &lt;- dt_clear %&gt;%
+  group_by(Region) %&gt;%
+  summarise(
+    mn_happiness = mean(happiness_score),
+    sd_happiness = sd(happiness_score),
+    max_happiness = max(happiness_score),
+    min_happiness = min(happiness_score),
+    mn_alcohol = mean(total_alcohol),
+    sd_alcohol = sd(total_alcohol),
+    max_alcohol = max(total_alcohol),
+    min_alcohol = min(total_alcohol)
+  )
+
+# Ehhez meg ezt a standard deviation vonalat nezd meg!
+
+plot_1 %&gt;%
+  ggplot() +
+  geom_bar(aes(x = Region, y = mn_happiness), stat = &quot;identity&quot;) +
+  geom_errorbar(aes(x = Region, ymin = mn_happiness - sd_happiness, ymax = mn_happiness + sd_happiness)) +
+  theme(axis.text.x = element_text(angle = 90))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre class="r"><code>plot_1 %&gt;%
+  ggplot() +
+  geom_bar(aes(x = Region, y = mn_alcohol), stat = &quot;identity&quot;) +
+  geom_errorbar(aes(x = Region, ymin = mn_alcohol - sd_alcohol, ymax = mn_alcohol + sd_alcohol)) +
+  theme(axis.text.x = element_text(angle = 90))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
 </div>
 <div id="does-happy-countries-drink-less-alcohol" class="section level1">
 <h1>Does happy countries drink less alcohol?</h1>
@@ -356,4 +437,236 @@ dt_clear %&gt;%
   geom_point(mapping = aes(x = happiness_rank, y = total_alcohol, color = Region)) +
   facet_wrap(~Region)</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-3.png" width="672" /></p>
+<p>ugyanaz a kerdes meg</p>
+<pre class="r"><code>dt_clear %&gt;%
+  arrange(happiness_rank) %&gt;%
+  ggplot() +
+  geom_point(mapping = aes(x = happiness_rank, y = total_alcohol, color = alcohol_cat))</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code># it seems like it is exacly the opposit
+
+dt_clear %&gt;%
+  group_by(alcohol_cat) %&gt;%
+  summarise(
+    mean_happiness = mean(happiness_score),
+    sd_happiness = sd(happiness_score),
+    mean_happy_rank = mean(happiness_rank),
+    sd_happy_rank = sd(happiness_rank)
+  ) %&gt;%
+  kable(., digits = 2, align = &quot;l&quot;, caption = &quot;Avarages about talalj ki valamit&quot;)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-10">Table 2: </span>Avarages about talalj ki valamit</caption>
+<thead>
+<tr class="header">
+<th align="left">alcohol_cat</th>
+<th align="left">mean_happiness</th>
+<th align="left">sd_happiness</th>
+<th align="left">mean_happy_rank</th>
+<th align="left">sd_happy_rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">doesn’t drink</td>
+<td align="left">4.96</td>
+<td align="left">0.83</td>
+<td align="left">96.25</td>
+<td align="left">35.83</td>
+</tr>
+<tr class="even">
+<td align="left">drinks less than 5 liters</td>
+<td align="left">4.95</td>
+<td align="left">0.99</td>
+<td align="left">96.49</td>
+<td align="left">40.47</td>
+</tr>
+<tr class="odd">
+<td align="left">drinks 5-10 liters</td>
+<td align="left">5.75</td>
+<td align="left">1.26</td>
+<td align="left">65.06</td>
+<td align="left">49.44</td>
+</tr>
+<tr class="even">
+<td align="left">drinks 10-15 liters</td>
+<td align="left">6.14</td>
+<td align="left">0.92</td>
+<td align="left">48.95</td>
+<td align="left">35.40</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>dt_clear %&gt;%
+  group_by(alcohol_cat) %&gt;%
+  summarise(
+    mean_happiness = mean(happiness_score),
+    sd_happiness = sd(happiness_score),
+    mean_happy_rank = mean(happiness_rank),
+    sd_happy_rank = sd(happiness_rank)
+  ) %&gt;%
+  ggplot() +
+  geom_bar(aes(x = alcohol_cat, y = mean_happiness), stat = &quot;identity&quot;) +
+  geom_hline(yintercept = mean(dt_clear$happiness_score), linetype=&quot;dotted&quot;, color = &quot;red&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+</div>
+<div id="countries-where-people-do-not-drink-alcohol" class="section level1">
+<h1>Countries where people do not drink alcohol</h1>
+<pre class="r"><code># summary table 
+dt_clear %&gt;%
+  filter(total_alcohol == 0) %&gt;%
+  select(happiness_rank, country, happiness_score, total_alcohol)</code></pre>
+<pre><code>## # A tibble: 8 x 4
+##   happiness_rank country     happiness_score total_alcohol
+##            &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;         &lt;dbl&gt;
+## 1             39 Kuwait                 6.30             0
+## 2             63 Libya                  5.75             0
+## 3             81 Pakistan               5.19             0
+## 4             91 Somalia                5.06             0
+## 5            109 Bangladesh             4.69             0
+## 6            110 Iran                   4.69             0
+## 7            124 Mauritania             4.44             0
+## 8            153 Afghanistan            3.58             0</code></pre>
+<pre class="r"><code># plot
+dt_clear %&gt;%
+  filter(total_alcohol == 0) %&gt;%
+  arrange(happiness_rank) %&gt;%
+  ggplot() +
+  geom_bar(mapping = aes(x = Region, y = happiness_score, fill = country), stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
+  geom_hline(yintercept = mean(dt_clear$happiness_score), linetype=&quot;dotted&quot;, color = &quot;red&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="question-two---do-people-in-happy-countries-drink-different-kind-of-alcohol" class="section level1">
+<h1>question two - Do people in happy countries drink different kind of alcohol?</h1>
+<pre class="r"><code># for safety
+plot_servings &lt;- dt_clear
+
+# creating happiness categories
+
+plot_servings$happy_cat &lt;- cut(plot_servings$happiness_rank, c(-1, 50, 100, 160), labels = c(&quot;happy&quot;, &quot;medium happy&quot;, &quot;not happy&quot;))
+
+
+
+# table
+
+plot_servings %&gt;%
+  group_by(happy_cat) %&gt;%
+  summarise(
+    mn_beer = mean(beer_servings),
+    mn_spirit = mean(spirit_servings),
+    mn_wine = mean(wine_servings),
+    mn_total = mean(total_alcohol)
+  ) %&gt;%
+  kable(., digits = 2, align = &quot;l&quot;, caption = &quot;Valami&quot;)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-12">Table 3: </span>Valami</caption>
+<thead>
+<tr class="header">
+<th align="left">happy_cat</th>
+<th align="left">mn_beer</th>
+<th align="left">mn_spirit</th>
+<th align="left">mn_wine</th>
+<th align="left">mn_total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">happy</td>
+<td align="left">169.47</td>
+<td align="left">98.37</td>
+<td align="left">99.41</td>
+<td align="left">6.84</td>
+</tr>
+<tr class="even">
+<td align="left">medium happy</td>
+<td align="left">114.55</td>
+<td align="left">100.36</td>
+<td align="left">48.87</td>
+<td align="left">5.15</td>
+</tr>
+<tr class="odd">
+<td align="left">not happy</td>
+<td align="left">54.77</td>
+<td align="left">44.25</td>
+<td align="left">19.28</td>
+<td align="left">3.10</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># make the data long format to be able to plot it
+
+plot_servings_plot &lt;- plot_servings %&gt;%
+  group_by(happy_cat) %&gt;%
+  summarise(
+    mn_beer = mean(beer_servings),
+    mn_spirit = mean(spirit_servings),
+    mn_wine = mean(wine_servings),
+    mn_total = mean(total_alcohol)
+  ) %&gt;%
+  gather(data = ., 
+       key = alcohol_type, value = servings,
+       &#39;mn_beer&#39;:&#39;mn_wine&#39;)
+
+
+# plot
+
+plot_servings_plot %&gt;%
+  ggplot() +
+  geom_bar(mapping = aes(x = happy_cat, y = servings, fill = alcohol_type), stat = &quot;identity&quot;, position = &quot;dodge&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="question-three---lets-see-sub-categories-of-happiness-gdp-etc." class="section level1">
+<h1>question three - lets see sub categories of happiness: GDP etc.</h1>
+<pre class="r"><code># GDP
+
+dt_clear %&gt;%
+  ggplot(., mapping = aes(x = GDP, y = total_alcohol)) +
+  geom_point(shape = 21, color = &quot;black&quot;, fill = &quot;steelblue&quot;, alpha = 1/2, size = 2) +
+  geom_smooth(color = &quot;firebrick&quot;) +
+  ylim(0, 15)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r"><code># Family
+dt_clear %&gt;%
+  ggplot(., mapping = aes(x = Family, y = total_alcohol)) +
+  geom_point(shape = 21, color = &quot;black&quot;, fill = &quot;steelblue&quot;, alpha = 1/2, size = 2) +
+  geom_smooth(color = &quot;firebrick&quot;) +
+  ylim(0, 15)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
+<pre class="r"><code># life_expectansy
+
+dt_clear %&gt;%
+  ggplot(., mapping = aes(x = life_expectancy, y = total_alcohol)) +
+  geom_point(shape = 21, color = &quot;black&quot;, fill = &quot;steelblue&quot;, alpha = 1/2, size = 2) +
+  geom_smooth(color = &quot;firebrick&quot;) +
+  ylim(0, 15)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-3.png" width="672" /></p>
+<pre class="r"><code># Freedom
+
+dt_clear %&gt;%
+  ggplot(., mapping = aes(x = Freedom, y = total_alcohol)) +
+  geom_point(shape = 21, color = &quot;black&quot;, fill = &quot;steelblue&quot;, alpha = 1/2, size = 2) +
+  geom_smooth(color = &quot;firebrick&quot;) +
+  ylim(0, 15)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-4.png" width="672" /></p>
+<pre class="r"><code># corruption
+
+dt_clear %&gt;%
+  ggplot(., mapping = aes(x = corruption, y = total_alcohol)) +
+  geom_point(shape = 21, color = &quot;black&quot;, fill = &quot;steelblue&quot;, alpha = 1/2, size = 2) +
+  geom_smooth(color = &quot;firebrick&quot;) +
+  ylim(0, 15)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-5.png" width="672" /></p>
+<pre class="r"><code># generosity
+
+dt_clear %&gt;%
+  ggplot(., mapping = aes(x = Generosity, y = total_alcohol)) +
+  geom_point(shape = 21, color = &quot;black&quot;, fill = &quot;steelblue&quot;, alpha = 1/2, size = 2) +
+  geom_smooth(color = &quot;firebrick&quot;) +
+  ylim(0, 15)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-6.png" width="672" /></p>
 </div>
