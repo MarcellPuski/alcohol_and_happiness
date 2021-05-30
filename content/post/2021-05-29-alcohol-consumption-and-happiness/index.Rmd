@@ -23,11 +23,6 @@ The other dataset is the [Alcohol Comsumption around the World](https://www.kagg
 I combined this two datasets together so i got a dataset that contains information's about the countries happiness leveles and alcohol consumption as well. Unfortunatelly there is five years difference in the data collection for the happiness scores and alcohol consumption, but probably these characteristics of countries citisens changes slowly, and overall it only causes minor inaccuracies.  
 
 
-
-
-
-
-
 ```{r include=FALSE}
 #  loading libraries
 
@@ -75,24 +70,19 @@ missing_dt <-
 
 
 
-
-in a few cases there is a mismatch between the datasets in the countries names causing more missing data
-
-The following names represent the same country:
-
-United States = USA
-Russia = Russian Federation
-Congo (Brazzaville) = Congo
-Congo (Kinshasa) = DR Congo
-Trinidad and Tobago = Trinidad & Tobago
-Somaliland region	= Somalia
-Bosnia and Herzegovina = Bosnia-Herzegovina
-Ivory Coast = Cote d'Ivoire
-
-
-
-
 ```{r include=FALSE}
+
+# in a few cases there is a mismatch between the datasets in the countries names causing more missing data
+# The following names represent the same country:
+    # United States = USA
+    #Russia = Russian Federation
+    #Congo (Brazzaville) = Congo
+    #Congo (Kinshasa) = DR Congo
+    #Trinidad and Tobago = Trinidad & Tobago
+    #Somaliland region	= Somalia
+    #Bosnia and Herzegovina = Bosnia-Herzegovina
+    #Ivory Coast = Cote d'Ivoire
+
 # correcting country names 
 
 # creating coppy for safty
@@ -162,14 +152,9 @@ dt_clear <-
 ```
 
 
-alcohol:
-
-0-14.4 
-
-less than
 
 ```{r include=FALSE}
-# creating sub-groups
+# creating sub-groups for alcohol consumption
 
 dt_clear$alcohol_cat <- cut(dt_clear$total_alcohol, c(-1, 0, 5,10,15), labels = c("doesn't drink","drinks less than 5 liters", "drinks 5-10 liters", "drinks 10-15 liters"))
 
