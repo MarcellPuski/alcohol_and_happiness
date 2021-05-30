@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.83.1" />
+
+
+<title>Alcohol consumption and happiness - A Hugo website</title>
+<meta property="og:title" content="Alcohol consumption and happiness - A Hugo website">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/MarcellPuski/alcohol_and_happiness">GitHub</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">6 min read</span>
+    
+
+    <h1 class="article-title">Alcohol consumption and happiness</h1>
+
+    
+    <span class="article-date">2021-05-29</span>
+    
+
+    <div class="article-content">
+      
+
+
+<p>In this short analysis i was curious about the connection of countries state of global happiness and their alcohol consumptions. Are people more or less happy in countries where a lot of alcohol is consumed? Do happy countries have different alcohol consuming habits?</p>
+<p>To answer this question i am investigating two datasets available online in <a href="https://www.kaggle.com/">kagle</a>.</p>
+<p>One of the datasets is the <a href="https://www.kaggle.com/unsdsn/world-happiness?select=2015.csv">World Happiness Report</a> which is a landmark survey of the state of global happiness. It contains 158 countries estimated happiness score (10 - happiest 0 -least happy) and the ranking based on that score. It also containes six factors: economic production, social support, life expectancy, freedom, absence of corruption, and generosity, which represents the contribution of this factors of making life evaluations higher in each country than they are in Dystopia, a hypothetical country that has values equal to the world’s lowest national averages for each of the six factors.
+For this short analysis i used the <em>World Happiness Report</em> from 2015.</p>
+<p>The other dataset is the <a href="https://www.kaggle.com/codebreaker619/alcohol-comsumption-around-the-world">Alcohol Comsumption around the World</a> which contains information of 193 countries alcohol consumptions, provided by the <em>World Health Organisation, Global Information System on Alcohol and Health (GISAH), 2010</em>. The dataset is providing information that on avarage how many glasses of wine, cans of beer and shots of spirits and the total liters of pure alcohol were drunk per person in each country in 2010.</p>
+<p>I combined this two datasets together so i got a dataset that contains information’s about the countries happiness leveles and alcohol consumption as well. Unfortunatelly there is five years difference in the data collection for the happiness scores and alcohol consumption, but probably these characteristics of countries citisens changes slowly, and this difference between the data sets overall only causes minor inaccuracies.</p>
+<p>In my combined dataset there remained 153 countries by joining the datasets together and keeping only the countries where informations about alcohol drinking and happiness is also provided.</p>
+<p>Table 1 shows the five happiest countries, and Table 2 shows the top five countries that consums the most alcohol.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-8">Table 1: </span>Ten five countries</caption>
+<thead>
+<tr class="header">
+<th align="left">Country</th>
+<th align="left">Region</th>
+<th align="left">Happiness Rank</th>
+<th align="left">Happiness Score</th>
+<th align="left">Beer servings</th>
+<th align="left">Spirit servings</th>
+<th align="left">Wine servings</th>
+<th align="left">Total liters of pure alcohol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Switzerland</td>
+<td align="left">Western Europe</td>
+<td align="left">1</td>
+<td align="left">7.59</td>
+<td align="left">185</td>
+<td align="left">100</td>
+<td align="left">280</td>
+<td align="left">10.2</td>
+</tr>
+<tr class="even">
+<td align="left">Iceland</td>
+<td align="left">Western Europe</td>
+<td align="left">2</td>
+<td align="left">7.56</td>
+<td align="left">233</td>
+<td align="left">61</td>
+<td align="left">78</td>
+<td align="left">6.6</td>
+</tr>
+<tr class="odd">
+<td align="left">Denmark</td>
+<td align="left">Western Europe</td>
+<td align="left">3</td>
+<td align="left">7.53</td>
+<td align="left">224</td>
+<td align="left">81</td>
+<td align="left">278</td>
+<td align="left">10.4</td>
+</tr>
+<tr class="even">
+<td align="left">Norway</td>
+<td align="left">Western Europe</td>
+<td align="left">4</td>
+<td align="left">7.52</td>
+<td align="left">169</td>
+<td align="left">71</td>
+<td align="left">129</td>
+<td align="left">6.7</td>
+</tr>
+<tr class="odd">
+<td align="left">Canada</td>
+<td align="left">North America</td>
+<td align="left">5</td>
+<td align="left">7.43</td>
+<td align="left">240</td>
+<td align="left">122</td>
+<td align="left">100</td>
+<td align="left">8.2</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:unnamed-chunk-9">Table 2: </span>Top five countries that drinks the most alcohol</caption>
+<thead>
+<tr class="header">
+<th align="left">Country</th>
+<th align="left">Region</th>
+<th align="left">Happiness Rank</th>
+<th align="left">Happiness Score</th>
+<th align="left">Beer servings</th>
+<th align="left">Spirit servings</th>
+<th align="left">Wine servings</th>
+<th align="left">Total liters of pure alcohol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Belarus</td>
+<td align="left">Central and Eastern Europe</td>
+<td align="left">59</td>
+<td align="left">5.81</td>
+<td align="left">142</td>
+<td align="left">373</td>
+<td align="left">42</td>
+<td align="left">14.4</td>
+</tr>
+<tr class="even">
+<td align="left">Lithuania</td>
+<td align="left">Central and Eastern Europe</td>
+<td align="left">56</td>
+<td align="left">5.83</td>
+<td align="left">343</td>
+<td align="left">244</td>
+<td align="left">56</td>
+<td align="left">12.9</td>
+</tr>
+<tr class="odd">
+<td align="left">France</td>
+<td align="left">Western Europe</td>
+<td align="left">29</td>
+<td align="left">6.58</td>
+<td align="left">127</td>
+<td align="left">151</td>
+<td align="left">370</td>
+<td align="left">11.8</td>
+</tr>
+<tr class="even">
+<td align="left">Czech Republic</td>
+<td align="left">Central and Eastern Europe</td>
+<td align="left">31</td>
+<td align="left">6.50</td>
+<td align="left">361</td>
+<td align="left">170</td>
+<td align="left">134</td>
+<td align="left">11.8</td>
+</tr>
+<tr class="odd">
+<td align="left">Russian Federation</td>
+<td align="left">Central and Eastern Europe</td>
+<td align="left">64</td>
+<td align="left">5.72</td>
+<td align="left">247</td>
+<td align="left">326</td>
+<td align="left">73</td>
+<td align="left">11.5</td>
+</tr>
+</tbody>
+</table>
+<div id="alcohol-consumption-and-happiness-levels-by-regions" class="section level1">
+<h1>Alcohol consumption and happiness levels by regions</h1>
+<p><img src="/2021/05/29/alcohol-consumption-and-happiness/index_files/figure-html/unnamed-chunk-10-1.png" width="672" /><img src="/2021/05/29/alcohol-consumption-and-happiness/index_files/figure-html/unnamed-chunk-10-2.png" width="672" /><img src="/2021/05/29/alcohol-consumption-and-happiness/index_files/figure-html/unnamed-chunk-10-3.png" width="672" /></p>
+</div>
+<div id="does-happy-countries-drink-less-alcohol" class="section level1">
+<h1>Does happy countries drink less alcohol?</h1>
+<p>In the following let’s investigate whether more alcohol consumption in a country also goes together with less happy citizens.
+Obviusly it is not possible to draw too powerfull conclusions from this investigation, while there are too many athor factors that could influence this alcohol - happiness connection, but it would be interesting to see, how this two factors goes together with.</p>
+<p><img src="/2021/05/29/alcohol-consumption-and-happiness/index_files/figure-html/unnamed-chunk-11-1.png" width="672" /><img src="/2021/05/29/alcohol-consumption-and-happiness/index_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
+<p>It seems like that exacly the opposit relationship is observable from the data, that the more alcohol is consumed in a country, the happier it’s citizens are.</p>
+<p>In order to further investigate i created categories based on the amount of total alcohol consumption.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-12">Table 3: </span>Avarage happiness levels by alcohol consumption categories</caption>
+<thead>
+<tr class="header">
+<th align="left">Alcohol category</th>
+<th align="left">mean happiness</th>
+<th align="left">happiness standard deviation</th>
+<th align="left">mean happiness rank</th>
+<th align="left">happiness rank standard deviation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">doesn’t drink</td>
+<td align="left">4.96</td>
+<td align="left">0.83</td>
+<td align="left">96.25</td>
+<td align="left">35.83</td>
+</tr>
+<tr class="even">
+<td align="left">drinks less than 5 liters</td>
+<td align="left">4.95</td>
+<td align="left">0.99</td>
+<td align="left">96.49</td>
+<td align="left">40.47</td>
+</tr>
+<tr class="odd">
+<td align="left">drinks 5-10 liters</td>
+<td align="left">5.75</td>
+<td align="left">1.26</td>
+<td align="left">65.06</td>
+<td align="left">49.44</td>
+</tr>
+<tr class="even">
+<td align="left">drinks 10-15 liters</td>
+<td align="left">6.14</td>
+<td align="left">0.92</td>
+<td align="left">48.95</td>
+<td align="left">35.40</td>
+</tr>
+</tbody>
+</table>
+<p><img src="/2021/05/29/alcohol-consumption-and-happiness/index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>From this combined data set it seems like in happy countries people tend to drink more. Obviusly there could not be drawn causation from this data, it is not clear weather alcohol makes people more happy, or if they are more happy they tend to drink more alcohol.
+Also there could be other factors like cultural differences in alcohol consumption that could affect this relationship.</p>
+</div>
+<div id="countries-where-people-do-not-drink-alcohol" class="section level1">
+<h1>Countries where people do not drink alcohol</h1>
+<p>In the following let’s see only the countries where people don’t drink alcohol</p>
+<table>
+<caption><span id="tab:unnamed-chunk-13">Table 4: </span>Countries where people doesn’t drink alcohol</caption>
+<thead>
+<tr class="header">
+<th align="left">Happiness rank</th>
+<th align="left">Country</th>
+<th align="left">Happiness score</th>
+<th align="left">total liters of pure alcohol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">39</td>
+<td align="left">Kuwait</td>
+<td align="left">6.29</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">63</td>
+<td align="left">Libya</td>
+<td align="left">5.75</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">81</td>
+<td align="left">Pakistan</td>
+<td align="left">5.19</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">91</td>
+<td align="left">Somalia</td>
+<td align="left">5.06</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">109</td>
+<td align="left">Bangladesh</td>
+<td align="left">4.69</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">110</td>
+<td align="left">Iran</td>
+<td align="left">4.69</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">124</td>
+<td align="left">Mauritania</td>
+<td align="left">4.44</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">153</td>
+<td align="left">Afghanistan</td>
+<td align="left">3.58</td>
+<td align="left">0</td>
+</tr>
+</tbody>
+</table>
+<p><img src="/2021/05/29/alcohol-consumption-and-happiness/index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="do-people-in-happy-countries-drink-different-kind-of-alcohol-than-people-in-less-happy-countries" class="section level1">
+<h1>Do people in happy countries drink different kind of alcohol than people in less happy countries?</h1>
+<p>In the present dataset there is information about how much servings of an avarage person drinks beer, spirits, and wine in a country, so it would be interesting to see weather people in happy countries has different alcohol drinking habbits than is less happy countries.</p>
+<p>For this reason i also created subcategories now based on the countries happines ranks, where the first 50 countries i labeled <em>“happy”</em> countries between 50 and 100 <em>“medium happy”</em> countries and above 100 <em>“not happy”</em> countries.</p>
+<p>This is of course a subjective category only for demonstration purposes.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-14">Table 5: </span>types of alcohol servings by happiness</caption>
+<thead>
+<tr class="header">
+<th align="left">happyness category</th>
+<th align="left">mean beer servings</th>
+<th align="left">mean spirit servings</th>
+<th align="left">mean wine servings</th>
+<th align="left">mean total liters of alcohol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">happy</td>
+<td align="left">169.47</td>
+<td align="left">98.37</td>
+<td align="left">99.41</td>
+<td align="left">6.84</td>
+</tr>
+<tr class="even">
+<td align="left">medium happy</td>
+<td align="left">114.55</td>
+<td align="left">100.36</td>
+<td align="left">48.87</td>
+<td align="left">5.15</td>
+</tr>
+<tr class="odd">
+<td align="left">not happy</td>
+<td align="left">54.77</td>
+<td align="left">44.25</td>
+<td align="left">19.28</td>
+<td align="left">3.10</td>
+</tr>
+</tbody>
+</table>
+<p><img src="/2021/05/29/alcohol-consumption-and-happiness/index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>One difference between <em>happy</em> and <em>medium</em> and <em>not happy</em> countries is the wine consumption. In every category people drink beer the most, but in the top 50 rated country people drink as much wine as spirits, while in less happy countries people drink more spirits than wine.</p>
+</div>
+<div id="other-factors-and-alcohol-consumption" class="section level1">
+<h1>Other factors and alcohol consumption</h1>
+<p>Finally lets see how the six factors which contributes to the countries happiness levels correlate with alcohol consumption.</p>
+<p>As mentioned above this factors represent contribution to making life evaluations higher in each country than they are in Dystopia, a hypothetical country that has values equal to the world’s lowest national averages for each of the six factors.
+For more information about this variables and the overall the <strong>World Happiness Report</strong> visit their website <a href="https://worldhappiness.report/ed/2015/">here</a></p>
+<p><img src="/2021/05/29/alcohol-consumption-and-happiness/index_files/figure-html/unnamed-chunk-15-1.png" width="672" /><img src="/2021/05/29/alcohol-consumption-and-happiness/index_files/figure-html/unnamed-chunk-15-2.png" width="672" /><img src="/2021/05/29/alcohol-consumption-and-happiness/index_files/figure-html/unnamed-chunk-15-3.png" width="672" /><img src="/2021/05/29/alcohol-consumption-and-happiness/index_files/figure-html/unnamed-chunk-15-4.png" width="672" /><img src="/2021/05/29/alcohol-consumption-and-happiness/index_files/figure-html/unnamed-chunk-15-5.png" width="672" /><img src="/2021/05/29/alcohol-consumption-and-happiness/index_files/figure-html/unnamed-chunk-15-6.png" width="672" /></p>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+    
+
+    
+  </body>
+</html>
+
