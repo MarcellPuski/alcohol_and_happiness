@@ -14,11 +14,11 @@ In this short analysis i was curious about the connection of countries state of 
 
 To answer this question i am investigating two datasets available online in [kagle](https://www.kaggle.com/).
 
-One of the datasets is the *World Happiness Report* (https://www.kaggle.com/unsdsn/world-happiness?select=2015.csv) which is a landmark survey of the state of global happiness. It contains 158 countries estimated happiness score (10 - happiest 0 -least happy) and the ranking based on that score. It also containes six factors: economic production, social support, life expectancy, freedom, absence of corruption, and generosity, which represents the contribution of this factors of making life evaluations higher in each country than they are in Dystopia, a hypothetical country that has values equal to the world’s lowest national averages for each of the six factors.
+One of the datasets is the [World Happiness Report](https://www.kaggle.com/unsdsn/world-happiness?select=2015.csv) which is a landmark survey of the state of global happiness. It contains 158 countries estimated happiness score (10 - happiest 0 -least happy) and the ranking based on that score. It also containes six factors: economic production, social support, life expectancy, freedom, absence of corruption, and generosity, which represents the contribution of this factors of making life evaluations higher in each country than they are in Dystopia, a hypothetical country that has values equal to the world’s lowest national averages for each of the six factors.
 I used the *World Happiness Report 2015*.   
 
 
-The other dataset is the *Alcohol Comsumption around the World* (https://www.kaggle.com/codebreaker619/alcohol-comsumption-around-the-world) which contains information of 193 countries alcohol consumptions, provided by the World Health Organisation, Global Information System on Alcohol and Health (GISAH), 2010. The dataset is providing information about on avarage how many glasses of wine, cans of beer and shots of spirits and the total liters of pure alcohol were drunk per person in each country in 2010. 
+The other dataset is the [Alcohol Comsumption around the World](https://www.kaggle.com/codebreaker619/alcohol-comsumption-around-the-world) which contains information of 193 countries alcohol consumptions, provided by the *World Health Organisation, Global Information System on Alcohol and Health (GISAH), 2010*. The dataset is providing information about on avarage how many glasses of wine, cans of beer and shots of spirits and the total liters of pure alcohol were drunk per person in each country in 2010. 
 
 I combined this two datasets together so i got a dataset that contains information's about the countries happiness leveles and alcohol consumption as well. Unfortunatelly there is five years difference in the data collection for the happiness scores and alcohol consumption, but probably these characteristics of countries citisens changes slowly, and overall it only causes minor inaccuracies.  
 
@@ -28,7 +28,7 @@ I combined this two datasets together so i got a dataset that contains informati
 # libraries
 
 
-```{r}
+```{r include=FALSE}
 library(tidyverse)
 library(readxl)
 library(skimr)
@@ -42,7 +42,7 @@ library(knitr)
 
 # loading data
 
-```{r}
+```{r include=FALSE}
 world_happiness <- read_csv("data/2015.csv")
 
 alcohol <- read.csv("data/drinks.csv")
@@ -53,7 +53,7 @@ alcohol <- read.csv("data/drinks.csv")
 
 # joining data
 
-```{r}
+```{r include=FALSE}
 # renaming country column to be the same in the two datasets
 world_happiness <- 
   world_happiness %>%
@@ -93,7 +93,7 @@ Ivory Coast = Cote d'Ivoire
 
 # correcting country names 
 
-```{r}
+```{r include=FALSE}
 # creating coppy for safty
 chumpa <- world_happiness 
 
@@ -135,7 +135,7 @@ apply(is.na(dt_clear),2,sum)
 
 Deleting rows where there is no data about alcohol consumtion 
 
-```{r}
+```{r include=FALSE}
 dt_clear <- na.omit(dt_clear)
 
 # checking
@@ -151,7 +151,7 @@ apply(is.na(dt_clear),2,sum)
 
 # renaming columns without spaces
 
-```{r}
+```{r include=FALSE}
 dt_clear <- 
   dt_clear %>%
   rename(happiness_score = 'Happiness Score',
@@ -178,7 +178,7 @@ alcohol:
 
 less than
 
-```{r}
+```{r include=FALSE}
 
 dt_clear$alcohol_cat <- cut(dt_clear$total_alcohol, c(-1, 0, 5,10,15), labels = c("doesn't drink","drinks less than 5 liters", "drinks 5-10 liters", "drinks 10-15 liters"))
 
@@ -191,7 +191,7 @@ dt_clear$alcohol_cat <- cut(dt_clear$total_alcohol, c(-1, 0, 5,10,15), labels = 
 
 # basic kable
 
-```{r}
+```{r echo=FALSE}
 kable(head(dt_clear), digits = 2, align = "l", caption = "Avarages about talalj ki valamit")
 
 # avarages about happiness and alcohol consumtion
@@ -269,7 +269,7 @@ plot_1 %>%
 
 
 
-```{r}
+```{r echo=FALSE, message=FALSE}
 
 # alcohol / happiness rank + Region
 
@@ -303,7 +303,7 @@ dt_clear %>%
 ugyanaz a kerdes meg
 
 
-```{r}
+```{r echo=FALSE}
 dt_clear %>%
   arrange(happiness_rank) %>%
   ggplot() +
@@ -346,7 +346,7 @@ dt_clear %>%
 
 
 
-```{r}
+```{r echo=FALSE}
 # summary table 
 dt_clear %>%
   filter(total_alcohol == 0) %>%
@@ -371,7 +371,7 @@ dt_clear %>%
 # question two - Do people in happy countries drink different kind of alcohol?
 
 
-```{r}
+```{r echo=FALSE}
 # for safety
 plot_servings <- dt_clear
 
@@ -424,7 +424,7 @@ plot_servings_plot %>%
 
 
 
-```{r}
+```{r echo=FALSE, message=FALSE}
 # GDP
 
 dt_clear %>%
