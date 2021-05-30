@@ -25,10 +25,12 @@ I combined this two datasets together so i got a dataset that contains informati
 
 
 
-# libraries
+
 
 
 ```{r include=FALSE}
+#  loading libraries
+
 library(tidyverse)
 library(readxl)
 library(skimr)
@@ -38,11 +40,9 @@ library(knitr)
 ```
 
 
-
-
+```{r include=FALSE}
 # loading data
 
-```{r include=FALSE}
 world_happiness <- read_csv("data/2015.csv")
 
 alcohol <- read.csv("data/drinks.csv")
@@ -50,10 +50,10 @@ alcohol <- read.csv("data/drinks.csv")
 ```
 
 
+```{r include=FALSE}
 
 # joining data
 
-```{r include=FALSE}
 # renaming country column to be the same in the two datasets
 world_happiness <- 
   world_happiness %>%
@@ -70,7 +70,6 @@ apply(is.na(dt),2,sum)
 missing_dt <- 
   dt %>%
   filter(is.na(beer_servings))
-
 
 ```
 
@@ -91,9 +90,11 @@ Bosnia and Herzegovina = Bosnia-Herzegovina
 Ivory Coast = Cote d'Ivoire
 
 
-# correcting country names 
+
 
 ```{r include=FALSE}
+# correcting country names 
+
 # creating coppy for safty
 chumpa <- world_happiness 
 
@@ -130,12 +131,9 @@ apply(is.na(dt_clear),2,sum)
 
 
 
-
-# Deleting NA rows
-
-Deleting rows where there is no data about alcohol consumtion 
-
 ```{r include=FALSE}
+# Deleting rows where there is no data about alcohol consumtion 
+
 dt_clear <- na.omit(dt_clear)
 
 # checking
@@ -147,11 +145,9 @@ apply(is.na(dt_clear),2,sum)
 
 
 
-
-
+```{r include=FALSE}
 # renaming columns without spaces
 
-```{r include=FALSE}
 dt_clear <- 
   dt_clear %>%
   rename(happiness_score = 'Happiness Score',
@@ -166,12 +162,6 @@ dt_clear <-
 ```
 
 
-
-
-
-
-# creating sub-groups
-
 alcohol:
 
 0-14.4 
@@ -179,12 +169,11 @@ alcohol:
 less than
 
 ```{r include=FALSE}
+# creating sub-groups
 
 dt_clear$alcohol_cat <- cut(dt_clear$total_alcohol, c(-1, 0, 5,10,15), labels = c("doesn't drink","drinks less than 5 liters", "drinks 5-10 liters", "drinks 10-15 liters"))
 
 ```
-
-
 
 
 
