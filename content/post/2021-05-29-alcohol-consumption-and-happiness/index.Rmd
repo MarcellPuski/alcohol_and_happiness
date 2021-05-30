@@ -10,13 +10,17 @@ tags:
 ---
 
 
+In this short analysis i was curious about the connection of countries state of global happiness and their alcohol consumptions. In countries where people are generally satisfied and happy overall less alcohol is consumed? Or is it the opposit, that in countries where people tend to drink more, are people also happier?  
+
+To answer this question i am investigating two datasets available online in [kagle](https://www.kaggle.com/).
+
+One of the datasets is the *World Happiness Report* (https://www.kaggle.com/unsdsn/world-happiness?select=2015.csv) which is a landmark survey of the state of global happiness. It contains 158 countries estimated happiness score (10 - happiest 0 -least happy) and the ranking based on that score. It also containes six factors: economic production, social support, life expectancy, freedom, absence of corruption, and generosity, which represents the contribution of this factors of making life evaluations higher in each country than they are in Dystopia, a hypothetical country that has values equal to the world’s lowest national averages for each of the six factors.
+I used the *World Happiness Report 2015*.   
 
 
+The other dataset is the *Alcohol Comsumption around the World* (https://www.kaggle.com/codebreaker619/alcohol-comsumption-around-the-world) which contains information of 193 countries alcohol consumptions, provided by the World Health Organisation, Global Information System on Alcohol and Health (GISAH), 2010. The dataset is providing information about on avarage how many glasses of wine, cans of beer and shots of spirits and the total liters of pure alcohol were drunk per person in each country in 2010. 
 
-
-
-
-
+I combined this two datasets together so i got a dataset that contains information's about the countries happiness leveles and alcohol consumption as well. Unfortunatelly there is five years difference in the data collection for the happiness scores and alcohol consumption, but probably these characteristics of countries citisens changes slowly, and overall it only causes minor inaccuracies.  
 
 
 
