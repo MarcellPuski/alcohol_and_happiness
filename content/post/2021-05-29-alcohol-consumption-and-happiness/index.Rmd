@@ -163,7 +163,7 @@ dt_clear$alcohol_cat <- cut(dt_clear$total_alcohol, c(-1, 0, 5,10,15), labels = 
 By joining the datasets together and keeping only the countries where is informations about alcohol drinking and happiness as well, there remained 153 countries. 
 
 
-Table 1 shows the five happiest countries,  
+Table 1 shows the five happiest countries, and Table 2 shows the top five most alcohol drinkinng countries.  
 
 ```{r echo=FALSE, message=FALSE}
 # table of 10 happiest countries
@@ -176,9 +176,6 @@ dt_clear %>%
 
 ```
 
-
-
-and Table 2 shows the top five most alcohol drinkinng countries.
 
 
 ```{r echo=FALSE, message=FALSE}
@@ -291,19 +288,36 @@ dt_clear %>%
 
 # Does happy countries drink less alcohol?
 
+In the following let's investigate whether more alcohol consumption in a country also goes together with less happy citizens. 
+Obviusly it is not possible to draw too powerfull conclusions from this investigation, while there are too many athor factors that could influence this alcohol - happiness connection, but it would be interesting to see, how this two factors goes together with.  
 
 
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-```{r echo=FALSE, message=FALSE}
-
-# ugyanez + smoothal 
+# alcohol + happiness rank plot 
 
 dt_clear %>%
   arrange(happiness_rank) %>%
   ggplot(., mapping = aes(x = happiness_rank, y = total_alcohol)) +
   geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
-  geom_smooth(color = "firebrick")
+  geom_smooth(color = "firebrick") +
+  labs(title = "Happiness rank and alcohol consumption",
+       x = "Happiness rank",
+       y = "mean total liters of alcohol") +
+  theme_classic()
+
+
+dt_clear %>%
+  arrange(happiness_rank) %>%
+  ggplot(., mapping = aes(x = happiness_score, y = total_alcohol)) +
+  geom_point(shape = 21, color = "black", fill = "steelblue", alpha = 1/2, size = 2) +
+  geom_smooth(color = "firebrick") +
+  geom_hline(yintercept = mean(dt_clear$total_alcohol), linetype="dotted", color = "black", size = 1,5) +
+  labs(title = "Happiness score and alcohol consumption",
+       x = "Happiness score",
+       y = "mean total liters of alcohol") +
+  theme_classic()
 
 
 
@@ -311,16 +325,13 @@ dt_clear %>%
 ```
 
 
-ugyanaz a kerdes meg
+It seems like that exacly the opposit relationship is observable from the data, that the more alcohol is consumed in a country, the happier it's citizens are.  
+
+
+In order to further investigate i created categories based on the amount of total alcohol consumption. 
 
 
 ```{r echo=FALSE}
-dt_clear %>%
-  arrange(happiness_rank) %>%
-  ggplot() +
-  geom_point(mapping = aes(x = happiness_rank, y = total_alcohol, color = alcohol_cat))
-
-# it seems like it is exacly the opposit
 
 dt_clear %>%
   group_by(alcohol_cat) %>%
@@ -330,7 +341,7 @@ dt_clear %>%
     mean_happy_rank = mean(happiness_rank),
     sd_happy_rank = sd(happiness_rank)
   ) %>%
-  kable(., digits = 2, align = "l", caption = "Avarages about talalj ki valamit")
+  kable(., digits = 2, align = "l", col.names = c("Alcohol category", "mean happiness", "happiness standard deviation", "mean happiness rank", "happiness rank standard deviation"), caption = "Avarage happiness levels by alcohol consumption categories")
 
 
 dt_clear %>%
@@ -342,14 +353,19 @@ dt_clear %>%
     sd_happy_rank = sd(happiness_rank)
   ) %>%
   ggplot() +
-  geom_bar(aes(x = alcohol_cat, y = mean_happiness), stat = "identity") +
-  geom_hline(yintercept = mean(dt_clear$happiness_score), linetype="dotted", color = "red")
+  geom_bar(aes(x = alcohol_cat, y = mean_happiness), stat = "identity", fill = "skyblue1") +
+  geom_hline(yintercept = mean(dt_clear$happiness_score), linetype="dotted", color = "red", size = 2) +
+  labs(title = "Alcohol categories and mean happiness scores",
+       x = "",
+       y = "mean happiness scores") +
+  theme_classic()
 
 
 
 ```
 
-
+From this combined data set it seems like in happy countries people tend to drink more. Obviusly there could not be drawn causation from this data, it is not clear weather alcohol makes people more happy, or if they are more happy they tend to drink more alcohol. 
+Also there could be other factors like cultural differences in alcohol consumption that could affect this relationship. 
 
 
 
