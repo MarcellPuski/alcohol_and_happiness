@@ -163,27 +163,39 @@ dt_clear$alcohol_cat <- cut(dt_clear$total_alcohol, c(-1, 0, 5,10,15), labels = 
 By joining the datasets together and keeping only the countries where is informations about alcohol drinking and happiness as well, there remained 153 countries. 
 
 
+Table 1 shows the five happiest countries,  
+
 ```{r echo=FALSE, message=FALSE}
 # table of 10 happiest countries
 
 dt_clear %>%
   select(country:happiness_score, beer_servings:total_alcohol) %>%
-  filter(happiness_rank <= 10) %>%
+  filter(happiness_rank <= 5) %>%
   kable(., digits = 2, align = "l", col.names = c("Country", "Region", "Happiness Rank", "Happiness Score", "Beer servings", "Spirit servings", "Wine servings", "Total liters of pure alcohol"), caption = "Ten happiest countries")
 
+
+```
+
+
+
+and Table 2 shows the top five most alcohol drinkinng countries.
+
+
+```{r echo=FALSE, message=FALSE}
 
 # table of 10 most alcohol drinking countries
 dt_clear %>%
   select(country:happiness_score, beer_servings:total_alcohol) %>%
   arrange(desc(total_alcohol)) %>%
-  top_n(10) %>%
+  top_n(5) %>%
   kable(., digits = 2, align = "l", col.names = c("Country", "Region", "Happiness Rank", "Happiness Score", "Beer servings", "Spirit servings", "Wine servings", "Total liters of pure alcohol"), caption = "Top ten countries that drinks the most alcohol")
 
 
 ```
 
 
-# basic kable
+
+# Descriptive statistics by region's
 
 ```{r echo=FALSE}
 
@@ -191,19 +203,6 @@ dt_clear %>%
 
 # avarages about happiness and alcohol consumtion
 
-dt_clear %>%
-  summarise(
-    mn_happiness = mean(happiness_score),
-    md_happiness = median(happiness_score),
-    sd_happiness = sd(happiness_score),
-    max_happiness = max(happiness_score),
-    min_happiness = min(happiness_score),
-    mn_alcohol = mean(total_alcohol),
-    md_alcohol = median(total_alcohol),
-    sd_alcohol = sd(total_alcohol),
-    max_alcohol = max(total_alcohol),
-    min_alcohol = min(total_alcohol)
-  )
 
 
 # creating summary table by Regions
@@ -211,16 +210,15 @@ dt_clear %>%
   group_by(Region) %>%
   summarise(
     mn_happiness = mean(happiness_score),
-    md_happiness = median(happiness_score),
     sd_happiness = sd(happiness_score),
     max_happiness = max(happiness_score),
     min_happiness = min(happiness_score),
     mn_alcohol = mean(total_alcohol),
-    md_alcohol = median(total_alcohol),
     sd_alcohol = sd(total_alcohol),
     max_alcohol = max(total_alcohol),
     min_alcohol = min(total_alcohol)
-  ) 
+  ) %>%
+  kable(., digits = 2, align = "l", col.names = c("Region", "mean happiness", "happiness standard deviation", "max happiness score", "minimum happiness score", "mean total liters of alcohol", "standard deviation of total liters of alcohol", "maximum total liters of alcohol", "minimum total liters of alcohol"))
 
 # Ploting summary table
 
@@ -237,18 +235,24 @@ plot_1 <- dt_clear %>%
     min_alcohol = min(total_alcohol)
   )
 
-# Ehhez meg ezt a standard deviation vonalat nezd meg!
+
 
 plot_1 %>%
   ggplot() +
-  geom_bar(aes(x = Region, y = mn_happiness), stat = "identity") +
-  geom_errorbar(aes(x = Region, ymin = mn_happiness - sd_happiness, ymax = mn_happiness + sd_happiness)) +
+  geom_bar(aes(x = Region, y = mn_happiness), stat = "identity", fill = "skyblue1") +
+  geom_errorbar(aes(x = Region, ymin = mn_happiness - sd_happiness, ymax = mn_happiness + sd_happiness), color = "red3") +
+  labs(title = "Happiness levels by regions",
+       x = "Regions", y = "mean happiness score") +
+  theme_classic() +
   theme(axis.text.x = element_text(angle = 90))
 
 plot_1 %>%
   ggplot() +
-  geom_bar(aes(x = Region, y = mn_alcohol), stat = "identity") +
-  geom_errorbar(aes(x = Region, ymin = mn_alcohol - sd_alcohol, ymax = mn_alcohol + sd_alcohol)) +
+  geom_bar(aes(x = Region, y = mn_alcohol), stat = "identity", fill = "skyblue1") +
+  geom_errorbar(aes(x = Region, ymin = mn_alcohol - sd_alcohol, ymax = mn_alcohol + sd_alcohol), color = "red3") +
+  labs(title = "Alcohol consumption by regions",
+       x = "Regions", y = "mean total liters of alcohol") +
+  theme_classic() +
   theme(axis.text.x = element_text(angle = 90))
   
 
